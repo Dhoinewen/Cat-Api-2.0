@@ -1,0 +1,22 @@
+<div class="container">
+  <div class="loading" *ngIf="loading$ | async" [ngStyle]="{'min-height': getCatListHeight()}">
+    <mat-spinner color="warn"></mat-spinner>
+  </div>
+
+  <div *ngIf="(loading$ | async)  !== true" [ngStyle]="{'min-height': getCatListHeight()}" class="itemList">
+    <div class="item" *ngFor="let cat of cats$ | async">
+      <img [src]="cat.url" [alt]="cat.id">
+      <div>
+        Cat ID: {{cat.id}}
+      </div>
+    </div>
+  </div>
+
+  <div class="paginator">
+    <mat-paginator #paginator [length]="paginationCount$ | async" [pageSizeOptions]="[10, 5, 15]"
+                   aria-label="Select page"
+                   (page)="onPaginationChange($event)">
+    </mat-paginator>
+  </div>
+
+</div>
